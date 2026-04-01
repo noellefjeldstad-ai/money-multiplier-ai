@@ -29,15 +29,15 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+    <div className="min-h-screen bg-white text-gray-800 flex items-center justify-center p-6">
       <div className="w-full max-w-xl space-y-6">
 
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight">
+          <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
             Money Multiplier AI
           </h1>
-          <p className="text-gray-500">
+          <p className="text-gray-600">
             Build your 5-year wealth plan in seconds
           </p>
         </div>
@@ -46,7 +46,7 @@ export default function Home() {
         <div className="border rounded-2xl p-6 space-y-4 shadow-sm">
 
           <input
-            className="w-full border rounded-xl p-3"
+            className="w-full border rounded-xl p-3 text-gray-800 placeholder-gray-400"
             placeholder="Monthly Income"
             value={income}
             onChange={(e) => setIncome(e.target.value)}
@@ -82,7 +82,7 @@ export default function Home() {
               Your Wealth Plan
             </h2>
 
-            <pre className="text-sm text-gray-600 whitespace-pre-wrap">
+            <pre className="text-sm text-gray-700 whitespace-pre-wrap">
               {JSON.stringify(result, null, 2)}
             </pre>
           </div>
