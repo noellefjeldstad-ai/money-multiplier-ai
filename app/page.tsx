@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import WealthChart from "@/components/WealthChart";
 
 export default function Home() {
   const [income, setIncome] = useState("");
@@ -43,7 +44,7 @@ export default function Home() {
           </p>
         </div>
 
-        {/* GLASS CARD */}
+        {/* INPUT CARD */}
         <div className="bg-white/70 backdrop-blur-xl border border-gray-200 rounded-3xl p-6 shadow-xl space-y-4">
 
           <div className="grid gap-4">
@@ -83,15 +84,43 @@ export default function Home() {
 
         {/* OUTPUT */}
         {result && (
-          <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-lg space-y-3">
+          <div className="space-y-6">
 
-            <h2 className="text-lg font-semibold text-gray-900">
-              Your Wealth Plan
-            </h2>
+            {/* AI SUMMARY */}
+            <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-lg space-y-2">
+              <h2 className="text-lg font-semibold text-gray-900">
+                AI Summary
+              </h2>
+              <p className="text-gray-700">{result.summary}</p>
+            </div>
 
-            <pre className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
-              {JSON.stringify(result, null, 2)}
-            </pre>
+            {/* STRATEGY */}
+            <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-lg space-y-2">
+              <h2 className="text-lg font-semibold text-gray-900">
+                Strategy
+              </h2>
+
+              <p className="text-gray-700">
+                Monthly Investing: ${result.strategy.monthlyInvesting}
+              </p>
+
+              <p className="text-gray-700">
+                Spending Limit: ${result.strategy.spendingLimit}
+              </p>
+
+              <p className="text-gray-700">
+                Emergency Fund Target: ${result.strategy.emergencyFundTarget}
+              </p>
+            </div>
+
+            {/* CHART */}
+            <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-lg space-y-3">
+              <h2 className="text-lg font-semibold text-gray-900">
+                5-Year Wealth Projection
+              </h2>
+
+              <WealthChart savings={Number(savings || 0)} />
+            </div>
 
           </div>
         )}

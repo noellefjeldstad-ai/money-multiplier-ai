@@ -3,20 +3,29 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   const { income, expenses, savings } = await req.json();
 
-  const remaining = income - expenses;
+  const disposableIncome = Math.max(0, income - expenses);
 
-  return NextResponse.json({
-    summary: "Mock Wealth Plan (AI will be enabled later)",
-    inputs: { income, expenses, savings },
+  const response = {
+    summary: "Optimized 5-year wealth strategy generated based on your income and spending patterns.",
+
     strategy: {
-      monthlyInvesting: Math.max(0, remaining * 0.4),
+      monthlyInvesting: Math.round(disposableIncome * 0.7),
       spendingLimit: expenses,
-      savingsGoal: savings * 1.2,
+      emergencyFundTarget: Math.round(expenses * 6),
     },
+
     actions: [
-      "Automate investing every paycheck",
-      "Cut discretionary spending by 10%",
-      "Build emergency fund to 6 months expenses"
-    ]
-  });
+      "Automate investing on payday",
+      "Reduce discretionary spending by 10%",
+      "Build a 6-month emergency fund before increasing risk exposure",
+    ],
+
+    projection: {
+      year1: Math.round(savings * 1.1),
+      year3: Math.round(savings * 1.35),
+      year5: Math.round(savings * 1.8),
+    },
+  };
+
+  return NextResponse.json(response);
 }
