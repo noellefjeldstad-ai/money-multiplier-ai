@@ -29,64 +29,73 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 flex items-center justify-center p-6">
-      <div className="w-full max-w-xl space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white flex items-center justify-center p-6 text-gray-900">
 
-        {/* Header */}
+      <div className="w-full max-w-2xl space-y-8">
+
+        {/* HEADER */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-semibold tracking-tight text-gray-900">
+          <h1 className="text-4xl font-semibold tracking-tight text-gray-900">
             Money Multiplier AI
           </h1>
-          <p className="text-gray-600">
-            Build your 5-year wealth plan in seconds
+          <p className="text-gray-500">
+            Your 5-year wealth strategy, optimized instantly
           </p>
         </div>
 
-        {/* Card */}
-        <div className="border rounded-2xl p-6 space-y-4 shadow-sm">
+        {/* GLASS CARD */}
+        <div className="bg-white/70 backdrop-blur-xl border border-gray-200 rounded-3xl p-6 shadow-xl space-y-4">
 
-          <input
-            className="w-full border rounded-xl p-3 text-gray-800 placeholder-gray-400"
-            placeholder="Monthly Income"
-            value={income}
-            onChange={(e) => setIncome(e.target.value)}
-          />
+          <div className="grid gap-4">
 
-          <input
-            className="w-full border rounded-xl p-3"
-            placeholder="Monthly Expenses"
-            value={expenses}
-            onChange={(e) => setExpenses(e.target.value)}
-          />
+            <input
+              className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-black/10"
+              placeholder="Monthly Income"
+              value={income}
+              onChange={(e) => setIncome(e.target.value)}
+            />
 
-          <input
-            className="w-full border rounded-xl p-3"
-            placeholder="Current Savings"
-            value={savings}
-            onChange={(e) => setSavings(e.target.value)}
-          />
+            <input
+              className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-black/10"
+              placeholder="Monthly Expenses"
+              value={expenses}
+              onChange={(e) => setExpenses(e.target.value)}
+            />
+
+            <input
+              className="w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-gray-800 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-black/10"
+              placeholder="Current Savings"
+              value={savings}
+              onChange={(e) => setSavings(e.target.value)}
+            />
+
+          </div>
 
           <button
             onClick={generatePlan}
             disabled={loading}
-            className="w-full bg-black text-white rounded-xl p-3 hover:opacity-90"
+            className="w-full rounded-2xl bg-black text-white py-3 font-medium shadow-md transition hover:scale-[1.01] hover:shadow-lg active:scale-[0.99] disabled:opacity-50"
           >
-            {loading ? "Generating..." : "Generate Plan"}
+            {loading ? "Building your plan..." : "Generate Wealth Plan"}
           </button>
+
         </div>
 
-        {/* Output */}
+        {/* OUTPUT */}
         {result && (
-          <div className="border rounded-2xl p-6 space-y-3 shadow-sm">
-            <h2 className="font-semibold text-lg">
+          <div className="bg-white border border-gray-200 rounded-3xl p-6 shadow-lg space-y-3">
+
+            <h2 className="text-lg font-semibold text-gray-900">
               Your Wealth Plan
             </h2>
 
-            <pre className="text-sm text-gray-700 whitespace-pre-wrap">
+            <pre className="text-sm text-gray-700 whitespace-pre-wrap leading-relaxed">
               {JSON.stringify(result, null, 2)}
             </pre>
+
           </div>
         )}
+
       </div>
     </div>
   );
