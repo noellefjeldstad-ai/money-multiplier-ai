@@ -6,10 +6,10 @@ export default function Home() {
   const [income, setIncome] = useState("");
   const [expenses, setExpenses] = useState("");
   const [savings, setSavings] = useState("");
-  const [result, setResult] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [result, setResult] = useState<any>(null);
 
-  async function generatePlan() {
+  const generatePlan = async () => {
     setLoading(true);
     setResult(null);
 
@@ -26,33 +26,41 @@ export default function Home() {
     const data = await res.json();
     setResult(data);
     setLoading(false);
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-indigo-950 text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-2xl bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 border border-white/20">
-        
-        <h1 className="text-3xl font-bold text-center mb-6">
-          💰 Money Multiplier AI
-        </h1>
+    <div className="min-h-screen bg-white flex items-center justify-center p-6">
+      <div className="w-full max-w-xl space-y-6">
 
-        <div className="space-y-4">
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h1 className="text-3xl font-semibold tracking-tight">
+            Money Multiplier AI
+          </h1>
+          <p className="text-gray-500">
+            Build your 5-year wealth plan in seconds
+          </p>
+        </div>
+
+        {/* Card */}
+        <div className="border rounded-2xl p-6 space-y-4 shadow-sm">
+
           <input
-            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
+            className="w-full border rounded-xl p-3"
             placeholder="Monthly Income"
             value={income}
             onChange={(e) => setIncome(e.target.value)}
           />
 
           <input
-            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
+            className="w-full border rounded-xl p-3"
             placeholder="Monthly Expenses"
             value={expenses}
             onChange={(e) => setExpenses(e.target.value)}
           />
 
           <input
-            className="w-full p-3 rounded-lg bg-black/40 border border-white/20"
+            className="w-full border rounded-xl p-3"
             placeholder="Current Savings"
             value={savings}
             onChange={(e) => setSavings(e.target.value)}
@@ -60,36 +68,23 @@ export default function Home() {
 
           <button
             onClick={generatePlan}
-            className="w-full py-3 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition font-semibold"
+            disabled={loading}
+            className="w-full bg-black text-white rounded-xl p-3 hover:opacity-90"
           >
-            {loading ? "Generating..." : "Generate Wealth Plan"}
+            {loading ? "Generating..." : "Generate Plan"}
           </button>
         </div>
 
+        {/* Output */}
         {result && (
-          <div className="mt-6 space-y-3">
-            <h2 className="text-xl font-semibold">📊 Your Plan</h2>
+          <div className="border rounded-2xl p-6 space-y-3 shadow-sm">
+            <h2 className="font-semibold text-lg">
+              Your Wealth Plan
+            </h2>
 
-            <div className="bg-black/40 p-4 rounded-lg">
-              <p className="text-sm opacity-70">Summary</p>
-              <p>{result.summary}</p>
-            </div>
-
-            <div className="bg-black/40 p-4 rounded-lg">
-              <p className="text-sm opacity-70">Actions</p>
-              <ul className="list-disc ml-5">
-                {result.actions?.map((a: string, i: number) => (
-                  <li key={i}>{a}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="bg-black/40 p-4 rounded-lg">
-              <p className="text-sm opacity-70">Strategy</p>
-              <pre className="text-sm">
-                {JSON.stringify(result.strategy, null, 2)}
-              </pre>
-            </div>
+            <pre className="text-sm text-gray-600 whitespace-pre-wrap">
+              {JSON.stringify(result, null, 2)}
+            </pre>
           </div>
         )}
       </div>
